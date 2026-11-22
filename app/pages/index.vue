@@ -1,4 +1,5 @@
 <template>
-    <p>Hello NUXT index</p>
-    <Btn></Btn>
+    <div class="m-auto p-4">
+        <p>Hello NUXT index</p>
+    </div>
 </template>

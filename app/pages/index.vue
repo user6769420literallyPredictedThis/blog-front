@@ -2,6 +2,8 @@
 import type { BlogPostProps } from '@nuxt/ui'
 import { faker } from '@faker-js/faker';
 
+let data = $fetch('http://localhost:8000/')
+
 const posts = ref<BlogPostProps[]>([
     {
         title: 'Nuxt Icon v1',

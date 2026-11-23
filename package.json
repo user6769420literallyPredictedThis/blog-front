@@ -10,7 +10,10 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "@faker-js/faker": "^10.6.0",
+    "@nuxt/ui": "^4.13.0",
     "nuxt": "^4.6.4",
+    "tailwindcss": "^4.3.5",
     "vue": "^3.5.45",
     "vue-router": "^5.4.0"
   }

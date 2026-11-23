@@ -2,7 +2,7 @@
 import type { BlogPostProps } from '@nuxt/ui'
 import { faker } from '@faker-js/faker';
 
-let data = $fetch('http://localhost:8000/')
+let data = $fetch('http://localhost:8000/api/posts')
 
 const posts = ref<BlogPostProps[]>([
     {

@@ -1,48 +1,40 @@
 <script setup lang="ts">
-import type { BlogPostProps } from '@nuxt/ui';
+import type { BlogPostProps } from '@nuxt/ui'
+import { faker } from '@faker-js/faker';
 
-const posts = ref<BlogPostProps[]>([]);
-let page = ref(0);
-let total = ref(0);
-let perPage = ref(0);
-let post: any;
-let route = useRoute();
-await getPosts(Number(route.query.page) || 1);
-
-async function getPosts(p: Number) {
-    let data: any = await $fetch('http://localhost:8000/api/posts', {
-        query: {
-            page: p,
-        },
-        headers: {
-            accept: 'application/json',
-        }
-    });
-    page.value = data.current_page;
-    total.value = data.total;
-    perPage.value = data.per_page;
-    posts.value = [];
-    for (post of data.data) {
-        posts.value.push({
-            title: post.title,
-            description: post.snippet,
-            image: post.images[0]?.path,
-            date: post.created_at,
-        });
-    }
-}
-function to(page: number) {
-    return {
-        query: {
-            page
-        }
-    }
+const posts = ref<BlogPostProps[]>([
+    {
+        title: 'Nuxt Icon v1',
+        description: 'Discover Nuxt Icon v1!',
+        image: 'https://nuxt.com/assets/blog/nuxt-icon/cover.png',
+        date: '2024-11-25',
+    },
+    {
+        title: 'Nuxt 3.14',
+        description: 'Nuxt 3.14 is out!',
+        image: 'https://nuxt.com/assets/blog/v3.14.png',
+        date: '2024-11-04',
+    },
+    {
+        title: 'Nuxt 3.13',
+        description: 'Nuxt 3.13 is out!',
+        image: 'https://nuxt.com/assets/blog/v3.13.png',
+        date: '2024-08-22',
+    },
+]);
+for (let i = 0; i < 20; i++) {
+    posts.value.push({
+        title: faker.lorem.sentence(),
+        description: faker.lorem.paragraph(),
+        image: faker.image.url({ width: 1280, height: 720 }),
+        date: faker.date.past()
+    })
 };
 </script>
 
 <template>
-    <UPagination @update:page="getPosts" :to="to" v-model:page="page" :items-per-page="perPage" :total="total"
-        show-edges :sibling-count="2" />
-    <UBlogPosts class="lg:grid-cols-4" :posts="posts" />
-    <UBlogPost v-for="(post, index) in posts" :key="index" v-bind="post" />
+    <UBlogPosts
+        class="lg:grid-cols-4"
+        :posts="posts"
+    />
 </template>
